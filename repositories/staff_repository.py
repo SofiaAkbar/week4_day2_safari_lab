@@ -17,3 +17,25 @@ def save(staff):
     id = results[0]['id']
     staff.id = id
     return staff
+
+def select_all():
+    staff = [] 
+
+    sql = "SELECT * FROM staff_details"
+    results = run_sql(sql)
+
+    for row in results:
+        person = Staff(row['name'], row['start_date'], row['dept'], row['performance'], row['id'])
+        staff.append(person)
+    return staff
+
+def select(id):
+    person = None 
+    sql = "SELECT * FROM staff_details WHERE id = %s"
+    values = [id]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        person = Staff(result['name'], result['start_date'], result['dept'], result['performance'], result['id'])
+
+    return person
