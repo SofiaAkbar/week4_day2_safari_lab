@@ -1,6 +1,8 @@
 import pdb
 from models.staff import Staff
+from models.animals import Animals
 import repositories.staff_repository as staff_repository
+import repositories.animal_repository as animal_repository
 
 staff_repository.delete_all()
 
