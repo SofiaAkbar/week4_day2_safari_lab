@@ -2,19 +2,19 @@ from db.run_sql import run_sql
 from models.staff import Staff
 
 def delete_all():
-    sql = "DELETE FROM staff_details"
+    sql = "DELETE FROM staff"
     run_sql(sql)
 
 
 def delete(id):
-    sql = "DELETE FROM staff_details WHERE id = %s"
+    sql = "DELETE FROM staff WHERE id = %s"
     values = [id]
     run_sql(sql, values)
 
 
 def save(staff):
-    sql = "INSERT INTO staff_details (name, start_date, dept, performance) VALUES (%s, %s, %s, %s) RETURNING *"
-    values = [staff.name, staff.start_name, staff.dept, staff.performance]
+    sql = "INSERT INTO staff (name, start_date, dept, performance) VALUES (%s, %s, %s, %s) RETURNING *"
+    values = [staff.name, staff.start_date, staff.dept, staff.performance]
     results = run_sql(sql, values)
     id = results[0]['id']
     staff.id = id
@@ -24,7 +24,7 @@ def save(staff):
 def select_all():
     staff = [] 
 
-    sql = "SELECT * FROM staff_details"
+    sql = "SELECT * FROM staff"
     results = run_sql(sql)
 
     for row in results:
@@ -35,7 +35,7 @@ def select_all():
 
 def select(id):
     person = None 
-    sql = "SELECT * FROM staff_details WHERE id = %s"
+    sql = "SELECT * FROM staff WHERE id = %s"
     values = [id]
     result = run_sql(sql, values)[0]
 
@@ -45,7 +45,7 @@ def select(id):
     return person
 
 
-def update(person):
-    sql = "UPDATE staff_details SET (name, start_date, dept, performance) = (%s, %s, %s, %s) WHERE id = %s"
+def update(staff):
+    sql = "UPDATE staff SET (name, start_date, dept, performance) = (%s, %s, %s, %s) WHERE id = %s"
     values = [staff.name, staff.start_date, staff.dept, staff.performance]
     run_sql(sql, values)
